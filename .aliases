@@ -1,3 +1,6 @@
+# List all aliases
+alias aliases="compgen -a | less"
+
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."
 alias ...="cd ../.."
