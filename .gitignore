@@ -13,4 +13,7 @@ Thumbs.db
 .Spotlight-V100
 .Trashes
 
-.extras
+# Sublime cache files
+sublime/Packages/User/*.cache
+sublime/Packages/User/*.system-ca-bundle
+sublime/Packages/User/Package Control.*
