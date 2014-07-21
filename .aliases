@@ -159,7 +159,7 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias reload="exec $SHELL -l"
 
 # Reload dotfiles (bootstrap)
-alias reload!="set -- -f; source bootstrap.sh"
+alias reload!="set -- -f; source ~/dotfiles/bootstrap.sh"
 
 # Open this
 alias dotfiles="subl ~/dotfiles"
