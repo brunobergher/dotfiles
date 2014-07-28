@@ -1,33 +1,35 @@
 {
-  // App
+	"auto_complete": true,
+	"auto_complete_delay": 0,
+	"caret_extra_bottom": 2,
+	"caret_extra_top": 2,
+	"caret_extra_width": 0,
+	"caret_style": "solid",
 	"close_windows_when_empty": true,
-	"color_scheme": "Packages/Color Themes/Goldfish.tmTheme",
+	"color_scheme": "Packages/Theme - Spacegray/base16-eighties.dark.tmTheme",
+	"copy_with_empty_selection": true,
 	"draw_minimap_border": true,
 	"draw_white_space": "all",
-  "ignored_packages": [ "Vintage" ],
-
-  // Display
-  "caret_extra_top": 2,
-  "caret_extra_bottom": 2,
-  "caret_extra_width": 0,
-  "caret_style": "solid", // "smooth", "phase", "blink" and "solid".
-  "draw_white_space": "all",
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".hg",
+		"CVS",
+		"sass-cache"
+	],
 	"font_face": "Monaco",
 	"font_size": 12,
 	"highlight_line": true,
-  "line_padding_top": 1,
-  "line_padding_bottom": 1,
-
-  // Editing
-  "auto_complete": true,
-  "auto_complete_delay": 0,
-  "copy_with_empty_selection": true,
-  "tab_size": 2,
-  "translate_tabs_to_spaces": true,
-  "trim_automatic_white_space": true,
-  "trim_trailing_white_space_on_save": true,
-  "use_tab_stops": true,
-
-  // File system
-  "folder_exclude_patterns": [".svn", ".git", ".hg", "CVS", "sass-cache"]
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"line_padding_bottom": 1,
+	"line_padding_top": 1,
+	"tab_size": 2,
+	"translate_tabs_to_spaces": true,
+	"trim_automatic_white_space": true,
+	"trim_trailing_white_space_on_save": true,
+	"use_tab_stops": true
 }
