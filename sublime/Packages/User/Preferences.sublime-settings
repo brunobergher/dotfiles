@@ -1,10 +1,11 @@
 {
 	"auto_complete": true,
 	"auto_complete_delay": 0,
+	"bold_folder_labels": true,
 	"caret_extra_bottom": 2,
 	"caret_extra_top": 2,
-	"caret_extra_width": 0,
-	"caret_style": "solid",
+	"caret_extra_width": 4,
+	"caret_style": "line",
 	"close_windows_when_empty": true,
 	"color_scheme": "Packages/Theme - Spacegray/base16-eighties.dark.tmTheme",
 	"copy_with_empty_selection": true,
@@ -16,14 +17,21 @@
 		".git",
 		".hg",
 		"CVS",
-		"sass-cache"
+		"sass-cache",
+		"build"
 	],
 	"font_face": "Monaco",
 	"font_size": 12,
 	"highlight_line": true,
+	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
 		"Vintage"
+	],
+	"indent_guide_options":
+	[
+		"draw_normal",
+		"draw_active"
 	],
 	"line_padding_bottom": 1,
 	"line_padding_top": 1,
@@ -31,5 +39,6 @@
 	"translate_tabs_to_spaces": true,
 	"trim_automatic_white_space": true,
 	"trim_trailing_white_space_on_save": true,
-	"use_tab_stops": true
+	"use_tab_stops": true,
+	"wide_caret": true
 }

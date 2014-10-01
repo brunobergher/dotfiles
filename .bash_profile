@@ -42,4 +42,5 @@ complete -o "nospace" -W "Contacts Calendar Dock Finder Mail Safari iTunes Syste
 if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ]; then
   source /usr/local/share/chruby/chruby.sh
   chruby ruby-1.9.3
+  source /usr/local/opt/chruby/share/chruby/auto.sh
 fi
