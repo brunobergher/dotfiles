@@ -28,6 +28,9 @@ alias gpl="git pull"
 alias gps="git push"
 alias gst="git status -s"
 
+# Ruby
+alias be="bundle exec"
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"

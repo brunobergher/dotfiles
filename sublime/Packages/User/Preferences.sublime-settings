@@ -7,7 +7,7 @@
 	"caret_extra_width": 4,
 	"caret_style": "line",
 	"close_windows_when_empty": true,
-	"color_scheme": "Packages/Theme - Spacegray/base16-ocean.dark.tmTheme",
+	"color_scheme": "Packages/Color Scheme - Default/Monokai.tmTheme",
 	"copy_with_empty_selection": true,
 	"draw_minimap_border": true,
 	"draw_white_space": "all",
@@ -19,7 +19,10 @@
 		"CVS",
 		"sass-cache",
 		".sass-cache",
-		"build"
+		"build",
+		"log",
+		"app/log",
+		"node_modules"
 	],
 	"font_face": "Monaco",
 	"font_size": 12,
