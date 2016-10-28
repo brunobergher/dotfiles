@@ -6,7 +6,7 @@
 	"caret_extra_width": 0,
 	"caret_style": "solid",
 	"close_windows_when_empty": true,
-	"color_scheme": "Packages/Theme - Spacegray/base16-eighties.dark.tmTheme",
+	"color_scheme": "Packages/User/Colorsublime/themes/Revelation.tmTheme",
 	"copy_with_empty_selection": true,
 	"draw_minimap_border": true,
 	"draw_white_space": "all",
@@ -18,7 +18,7 @@
 		"CVS",
 		"sass-cache"
 	],
-	"font_face": "Monaco",
+	"font_face": "Odisseia",
 	"font_size": 12,
 	"highlight_line": true,
 	"ignored_packages":
