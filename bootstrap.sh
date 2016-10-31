@@ -2,7 +2,8 @@
 cd "$(dirname "${BASH_SOURCE}")"
 git pull origin master
 function doIt() {
-	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" \
+	rsync --exclude ".git/" --exclude ".DS_Store" --exclude "bootstrap.sh" --exclude "init.sh" \
+    --exclude "aliases/" --exclude "sublime/"  --exclude "init/" \
 		--exclude "README.md" --exclude "LICENSE-MIT.txt" -av --no-perms . ~
 	source ~/.bash_profile
 }
@@ -17,4 +18,5 @@ else
 fi
 unset doIt
 
+echo
 echo "If you're setting up a new Mac, you may want to run ./init.sh"
