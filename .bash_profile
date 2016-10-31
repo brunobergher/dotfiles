@@ -43,3 +43,7 @@ if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ]; then
   source /usr/local/share/chruby/chruby.sh
   chruby ruby-1.9.3
 fi
+
+# Global git config
+git config --global user.name "Bruno Bergher"
+git config --global user.email "me@brunobergher.com"
