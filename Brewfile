@@ -13,6 +13,7 @@ install bash
 
 # Install other useful binaries
 install git
+install ffmpeg
 install imagemagick
 install tree
 
