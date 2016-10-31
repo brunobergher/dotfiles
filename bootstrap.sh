@@ -16,3 +16,5 @@ else
 	fi
 fi
 unset doIt
+
+echo "If you're setting up a new Mac, you may want to run ./init.sh"
