@@ -1,5 +1,5 @@
 # Install Cask
-brew install brew-cask
+brew install cask
 
 # Install Apps through Cask
 brew cask install  --appdir="/Applications" google-chrome
