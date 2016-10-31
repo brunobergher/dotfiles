@@ -9,7 +9,6 @@ upgrade
 install coreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, g-prefixed
 install findutils
-# Install Bash 4
 install bash
 
 # Install other useful binaries

@@ -42,12 +42,12 @@ Here’s an example `~/.path` file that adds `~/utils` to the `$PATH`:
 export PATH="$HOME/utils:$PATH"
 ```
 
-### Sensible OS X defaults
+### New Mac Setup
 
-When setting up a new Mac, you may want to set some sensible OS X defaults:
+When setting up a new Mac, you may want to set some sensible OS X defaults, install homebrew and several macOS apps.
 
 ```bash
-./init/osx.sh
+./init.sh
 ```
 
 ### Install Homebrew formulae
