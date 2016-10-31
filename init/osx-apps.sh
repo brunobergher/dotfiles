@@ -1,6 +1,3 @@
-# Install Cask
-brew install cask
-
 # Install Apps through Cask
 brew cask install  --appdir="/Applications" google-chrome
 brew cask install  --appdir="/Applications" hyper
