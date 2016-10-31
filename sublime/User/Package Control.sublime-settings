@@ -1,0 +1,14 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"Better CoffeeScript",
+		"Boxy Theme",
+		"FramerCompletion",
+		"Package Control",
+		"Theme - Alpenglow"
+	]
+}
