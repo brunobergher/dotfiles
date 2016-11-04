@@ -16,6 +16,7 @@ source ~/dotfiles/aliases/maintenance.sh
 source ~/dotfiles/aliases/meta.sh
 source ~/dotfiles/aliases/network.sh
 source ~/dotfiles/aliases/servers.sh
+source ~/dotfiles/aliases/scripts.sh
 source ~/dotfiles/aliases/shortcuts.sh
 
 # Case-insensitive globbing (used in pathname expansion)
