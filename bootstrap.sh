@@ -5,7 +5,6 @@ function doIt() {
 	rsync --exclude ".git/" --exclude ".DS_Store" \
 		--exclude "bootstrap.sh" --exclude "init.sh" \
 		--exclude "aliases/" --exclude "sublime/"  --exclude "init/" \
-		--exclude "Brewfile" \
 		--exclude "README.md" --exclude "LICENSE-MIT.txt" \
 		-av --no-perms . ~
 	source ~/.bash_profile
