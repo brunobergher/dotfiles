@@ -17,5 +17,9 @@ install ffmpeg
 install imagemagick
 install tree
 
+# Install Ruby stuff
+install chruby
+install ruby-install
+
 # Remove outdated versions from the cellar
 cleanup

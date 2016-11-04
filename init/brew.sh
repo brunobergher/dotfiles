@@ -19,5 +19,9 @@ brew install ffmpeg
 brew install imagemagick
 brew install tree
 
+# Install Ruby stuff
+install chruby
+install ruby-install
+
 # Remove outdated versions from the cellar
 brew cleanup
