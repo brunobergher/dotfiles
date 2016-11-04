@@ -6,7 +6,7 @@ module.exports = {
     cursorShape: 'BLOCK', // `BEAM` for |, `UNDERLINE` for _, `BLOCK` for █
     foregroundColor: '#ffffff',
     backgroundColor: '#152638',
-    borderColor: '#333',
+    borderColor: 'rgba(0,0,0,0.25)',
     padding: '12px 14px',
 
     css: '',
@@ -66,7 +66,7 @@ module.exports = {
 
   // a list of plugins to fetch and install from npm
   // format: [@org/]project[#version]
-  plugins: [],
+  plugins: ["hypercwd"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
