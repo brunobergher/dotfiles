@@ -8,17 +8,27 @@ if ARGV[0].nil?
   exit
 end
 
-file  = ARGV[0]
-width = (ARGV[1] || 400).to_i
-fps   = (ARGV[2] || 20).to_i
-output = File.basename(file, ".*") + ".gif"
+######################################################################
 
-puts "Converting #{file} into #{output} at #{width} pixels wide and #{fps} fps..."
+require File.dirname(__FILE__) + "/../_util/nice_size.rb"
 
-palette = "/tmp/togif-temp-palette.png"
-filters = "fps=#{fps},scale=#{width}:-1:flags=lanczos"
+def convert(file, width, fps)
+  output = File.basename(file, ".*") + ".gif"
 
-File.unlink(palette) if File.exists?(palette)
+  puts "Converting #{file} into #{output} at #{width} pixels wide and #{fps} fps..."
 
-system "ffmpeg -v error -i #{file} -vf \"#{filters},palettegen\" -y #{palette}"
-system "ffmpeg -v error -i #{file} -i #{palette} -lavfi \"#{filters} [x]; [x][1:v] paletteuse\" -y #{output}"
+  palette = "/tmp/togif-temp-palette.png"
+  filters = "fps=#{fps},scale=#{width}:-1:flags=lanczos"
+
+  File.unlink(palette) if File.exists?(palette)
+
+  system "ffmpeg -v error -i #{file} -vf \"#{filters},palettegen\" -y #{palette}"
+  system "ffmpeg -v error -i #{file} -i #{palette} -lavfi \"#{filters} [x]; [x][1:v] paletteuse\" -y #{output}"
+
+  size_original = File.size(file).to_f
+  size_new = File.size(output).to_f
+
+  puts "Created #{output}: #{nice_size(size_new)} (original #{nice_size(size_original)})"
+end
+
+convert ARGV[0], ARGV[1] || 400, ARGV[2] || 20
