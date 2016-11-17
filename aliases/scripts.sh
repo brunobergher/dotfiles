@@ -1,1 +1,1 @@
-alias scr="~/dotfiles/scripts/script.rb"
+alias scr="~/dotfiles/scripts/scripts.rb"

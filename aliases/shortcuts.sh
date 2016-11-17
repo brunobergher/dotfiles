@@ -1,6 +1,5 @@
 # Shortcuts
 alias dl="cd ~/Downloads"
 alias dt="cd ~/Desktop"
-alias co="cd ~/Code"
-alias p="cd ~/projects"
+alias p="cd ~/Documents/Projects"
 alias h="history"
