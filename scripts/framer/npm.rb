@@ -11,8 +11,14 @@ def humanize(name)
   name.join("")
 end
 
+if modules[0] == "default"
+  modules = %w|framer-icon framer-label framer-material distribute-elements|
+end
+
+
 if modules.size == 0
   puts "\e[32mUsage: npm module1 module2 module3 ...\e[m"
+  puts "\e[32mAlternative npm default # installs a default set of modules\e[m"
   exit
 end
 
