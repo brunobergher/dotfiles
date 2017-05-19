@@ -7,8 +7,11 @@
 	[
 		"Better CoffeeScript",
 		"Boxy Theme",
+		"ColorHelper",
 		"FramerCompletion",
 		"Package Control",
+		"Processing",
+		"SCSS",
 		"Theme - Alpenglow"
 	]
 }
