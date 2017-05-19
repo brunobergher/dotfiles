@@ -11,10 +11,6 @@ if !dir || !res
   exit
 end
 
-unless Dir.exists?("#{dir}/output")
-  Dir.mkdir("#{dir}/output")
-end
-
 Dir.glob("#{dir}/*.jpg").each do |source|
   dimensions = `identify -ping -format \"%[fx:w]x%[fx:h]\" #{source}`
   dimensions = dimensions.split("x").map { |d| d.to_i }
