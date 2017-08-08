@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[updatePixels();]]></content>
-    <description>updatePixels</description>
-    <scope>source.pde</scope>
-    <tabTrigger>updatepixels</tabTrigger>
-</snippet>

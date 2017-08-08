@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[PVector ${1:v} = new PVector(${2:x},${3:y},${4:z});]]></content>
-    <description>var vector xyz</description>
-    <scope>source.pde</scope>
-    <tabTrigger>vec</tabTrigger>
-</snippet>

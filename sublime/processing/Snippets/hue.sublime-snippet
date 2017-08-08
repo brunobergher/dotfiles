@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[hue(${1:color});]]></content>
-    <description>hue</description>
-    <scope>source.pde</scope>
-    <tabTrigger>hue</tabTrigger>
-</snippet>

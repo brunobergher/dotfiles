@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[shorten(${1:array});]]></content>
-    <description>shorten</description>
-    <scope>source.pde</scope>
-    <tabTrigger>shorten</tabTrigger>
-</snippet>

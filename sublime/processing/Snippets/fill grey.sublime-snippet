@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[fill(${1:grey});]]></content>
-    <description>fill grey</description>
-    <scope>source.pde</scope>
-    <tabTrigger>fill</tabTrigger>
-</snippet>

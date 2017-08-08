@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[minute()]]></content>
-    <description>minute</description>
-    <scope>source.pde</scope>
-    <tabTrigger>time</tabTrigger>
-</snippet>

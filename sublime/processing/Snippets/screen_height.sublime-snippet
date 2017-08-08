@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[screen.height]]></content>
-    <description>screen.height</description>
-    <scope>source.pde</scope>
-    <tabTrigger>screen</tabTrigger>
-</snippet>

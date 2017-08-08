@@ -1,6 +1,0 @@
-<snippet>
-	<content><![CDATA[rectMode(${1:CENTER});]]></content>
-	<description>rectMode</description>
-	<scope>source.pde</scope>
-	<tabTrigger>rect</tabTrigger>
-</snippet>

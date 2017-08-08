@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[asin(${1:value});]]></content>
-    <description>asin</description>
-    <scope>source.pde</scope>
-    <tabTrigger>asin</tabTrigger>
-</snippet>

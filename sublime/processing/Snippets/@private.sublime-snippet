@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[@private]]></content>
-    <description>@private</description>
-    <scope>source.pde</scope>
-    <tabTrigger>@</tabTrigger>
-</snippet>

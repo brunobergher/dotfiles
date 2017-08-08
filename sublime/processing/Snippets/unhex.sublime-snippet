@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[unhex(${3:c});]]></content>
-    <description>unhex</description>
-    <scope>source.pde</scope>
-    <tabTrigger>unhex</tabTrigger>
-</snippet>

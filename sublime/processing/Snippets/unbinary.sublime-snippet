@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[unbinary(${3:"${1:str}"});]]></content>
-    <description>unbinary</description>
-    <scope>source.pde</scope>
-    <tabTrigger>unbinary</tabTrigger>
-</snippet>

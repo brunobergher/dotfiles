@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[println(gl.glGetError());]]></content>
-    <description>glGetError</description>
-    <scope>source.pde</scope>
-    <tabTrigger>glgeterror</tabTrigger>
-</snippet>

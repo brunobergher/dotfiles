@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[curveDetail(${1:detail});]]></content>
-    <description>curveDetail</description>
-    <scope>source.pde</scope>
-    <tabTrigger>curve</tabTrigger>
-</snippet>

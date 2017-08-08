@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[noCursor();]]></content>
-    <description>noCursor</description>
-    <scope>source.pde</scope>
-    <tabTrigger>cursor</tabTrigger>
-</snippet>

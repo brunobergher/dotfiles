@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[println("$1");$0]]></content>
-    <description>println text</description>
-    <scope>source.pde</scope>
-    <tabTrigger>println</tabTrigger>
-</snippet>
