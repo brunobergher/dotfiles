@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[textWidth(${1:data});]]></content>
-    <description>textWidth</description>
-    <scope>source.pde</scope>
-    <tabTrigger>text</tabTrigger>
-</snippet>

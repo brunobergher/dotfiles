@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[millis()]]></content>
-    <description>millis</description>
-    <scope>source.pde</scope>
-    <tabTrigger>time</tabTrigger>
-</snippet>

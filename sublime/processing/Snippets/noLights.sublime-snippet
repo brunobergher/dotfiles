@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[noLights();]]></content>
-    <description>noLights</description>
-    <scope>source.pde</scope>
-    <tabTrigger>light</tabTrigger>
-</snippet>

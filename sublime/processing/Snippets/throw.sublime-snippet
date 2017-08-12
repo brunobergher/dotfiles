@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[throw new Exception("${1:Name}");]]></content>
-    <description>throw</description>
-    <scope>source.pde</scope>
-    <tabTrigger>throw</tabTrigger>
-</snippet>

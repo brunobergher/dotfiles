@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[randomSeed(${1:value});]]></content>
-    <description>randomSeed</description>
-    <scope>source.pde</scope>
-    <tabTrigger>random</tabTrigger>
-</snippet>

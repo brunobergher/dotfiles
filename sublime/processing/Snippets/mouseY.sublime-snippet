@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[mouseY]]></content>
-    <description>mouseY</description>
-    <scope>source.pde</scope>
-    <tabTrigger>mouse</tabTrigger>
-</snippet>

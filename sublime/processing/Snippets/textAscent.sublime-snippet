@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[textAscent();]]></content>
-    <description>textAscent</description>
-    <scope>source.pde</scope>
-    <tabTrigger>text</tabTrigger>
-</snippet>

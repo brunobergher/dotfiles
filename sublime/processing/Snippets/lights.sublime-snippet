@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[lights();]]></content>
-    <description>lights</description>
-    <scope>source.pde</scope>
-    <tabTrigger>light</tabTrigger>
-</snippet>

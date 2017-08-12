@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[red(${1:color});]]></content>
-    <description>red</description>
-    <scope>source.pde</scope>
-    <tabTrigger>red</tabTrigger>
-</snippet>

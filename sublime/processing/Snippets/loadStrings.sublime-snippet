@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[loadStrings(${2:"${1:filename}"});]]></content>
-    <description>loadStrings</description>
-    <scope>source.pde</scope>
-    <tabTrigger>load</tabTrigger>
-</snippet>

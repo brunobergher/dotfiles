@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[noFill();]]></content>
-    <description>noFill</description>
-    <scope>source.pde</scope>
-    <tabTrigger>nofill</tabTrigger>
-</snippet>

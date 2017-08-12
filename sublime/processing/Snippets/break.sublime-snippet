@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[break ${1:label};]]></content>
-    <description>break</description>
-    <scope>source.pde</scope>
-    <tabTrigger>break</tabTrigger>
-</snippet>

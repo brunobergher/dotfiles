@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[month()]]></content>
-    <description>month</description>
-    <scope>source.pde</scope>
-    <tabTrigger>time</tabTrigger>
-</snippet>

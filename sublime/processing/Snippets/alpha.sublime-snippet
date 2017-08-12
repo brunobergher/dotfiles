@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[alpha(${1:color});]]></content>
-    <description>alpha</description>
-    <scope>source.pde</scope>
-    <tabTrigger>alpha</tabTrigger>
-</snippet>

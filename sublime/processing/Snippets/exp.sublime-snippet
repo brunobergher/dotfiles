@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[exp(${1:value});]]></content>
-    <description>exp</description>
-    <scope>source.pde</scope>
-    <tabTrigger>exp</tabTrigger>
-</snippet>

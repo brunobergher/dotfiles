@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[floor(${1:value});]]></content>
-    <description>floor</description>
-    <scope>source.pde</scope>
-    <tabTrigger>floor</tabTrigger>
-</snippet>

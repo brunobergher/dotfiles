@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[char ${1:m} ${6:= "${3:char}"};]]></content>
-    <description>char</description>
-    <scope>source.pde</scope>
-    <tabTrigger>char</tabTrigger>
-</snippet>

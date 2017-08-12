@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[TWO_PI]]></content>
-    <description>TWO PI</description>
-    <scope>source.pde</scope>
-    <tabTrigger>pi</tabTrigger>
-</snippet>

@@ -1,6 +1,0 @@
-<snippet>
-    <content><![CDATA[printProjection();]]></content>
-    <description>printProjection</description>
-    <scope>source.pde</scope>
-    <tabTrigger>camera</tabTrigger>
-</snippet>
