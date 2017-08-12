@@ -1,13 +1,13 @@
 #!/usr/bin/env ruby
 
 if ARGV[0].nil?
-  puts "\e[32mUsage: imgtoinstagram PATTERN OUTPUT FPS\e[m"
+  puts "\e[32mUsage: imgtoinstagram OUTPUT PATTERN\e[m"
+  puts "\e[32mDefault pattern is \"\%4d.png\"\e[m"
   exit
 end
+output = ARGV[0] || "_output"
+pattern = ARGV[1] || '%4d.png'
 
-pattern = ARGV[0] || "\%4d.png"
-output = ARGV[1] || "_output.mov"
-fps = ARGV[2] || 30
-
-puts "Converting files matching #{pattern} to #{output} at #{fps}"
-system "ffmpeg -loop 0 -i #{pattern} -c:v libx264 -strict -2 -r #{fps} -pix_fmt yuv420p #{output}"
+puts "Converting files matching #{pattern} to #{output}..."
+cmd = "ffmpeg -f image2 -i \"#{pattern}\" -framerate 30 -vcodec mpeg4 -strict -2 -vb 5500k -mbd 2 -flags +mv4+aic -trellis 1 -cmp 2 -subcmp 2 #{output}.mp4"
+system cmd
