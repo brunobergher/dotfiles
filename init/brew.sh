@@ -23,5 +23,8 @@ brew install tree
 install chruby
 install ruby-install
 
+# Install fuck stuff
+brew install thefuck
+
 # Remove outdated versions from the cellar
 brew cleanup
