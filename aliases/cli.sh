@@ -9,6 +9,10 @@ alias -- -="cd -"
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
 
+# Fuck
+alias fucking='sudo'
+eval $(thefuck --alias)
+
 # Intuitive map function
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
