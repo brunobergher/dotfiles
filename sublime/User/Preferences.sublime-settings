@@ -16,7 +16,8 @@
 		".git",
 		".hg",
 		"CVS",
-		"sass-cache"
+		"sass-cache",
+		".sass-cache"
 	],
 	"font_face": "Odisseia",
 	"font_size": 12,
