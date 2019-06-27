@@ -10,17 +10,6 @@ module.exports = {
     padding: '12px 14px',
 
     css: '',
-    termCSS: `
-      @keyframes blink {
-        from { opacity: 0.1 }
-        to { opacity: 0.8 }
-      }
-
-      .cursor-node {
-        animation: 0.5s blink linear infinite alternate;
-        border-radius: 2px;
-      }
-    `,
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -66,7 +55,7 @@ module.exports = {
 
   // a list of plugins to fetch and install from npm
   // format: [@org/]project[#version]
-  plugins: ["hypercwd"],
+  plugins: ["hypercwd","hyper-blink"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
