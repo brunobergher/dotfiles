@@ -56,6 +56,10 @@ if [ -n "$BASH_VERSION" ] || [ -n "$ZSH_VERSION" ]; then
   chruby ruby-2
 fi
 
+# .ruby-version
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+
 # Global git config
 git config --global user.name "Bruno Bergher"
 git config --global user.email "me@brunobergher.com"
