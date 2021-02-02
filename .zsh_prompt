@@ -1,0 +1,18 @@
+# Refs
+# https://scriptingosx.com/2019/07/moving-to-zsh-06-customizing-the-zsh-prompt/
+# https://jonasjacek.github.io/colors/c
+# http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+
+export TERM=xterm-256color
+
+function parse_git_dirty() {
+  [[ $(git status 2> /dev/null | tail -n1) != *"nothing to commit, working tree clean"* ]] && echo " ⚑"
+}
+
+function parse_git_branch() {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+}
+
+setopt PROMPT_SUBST
+NEWLINE=$'\n'
+PROMPT='${NEWLINE}%F{8}%n@%M%f %F{220}%~%f %F{8}on%f %F{105}$(parse_git_branch) %f${NEWLINE}%F{220}▶%f '
