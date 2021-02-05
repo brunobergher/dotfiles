@@ -27,3 +27,7 @@ source /usr/local/share/chruby/chruby.sh
 # Global git config
 git config --global user.name "Bruno Bergher"
 git config --global user.email "me@brunobergher.com"
+
+# Case insensitive completion
+# As per https://gist.github.com/nhibberd/9d78576aab943cdb0f6c
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
