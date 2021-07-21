@@ -25,17 +25,10 @@ source ~/dotfiles/aliases/scripts.sh
 source ~/dotfiles/aliases/shortcuts.sh
 
 
-# Default ruby
-source "${HOMEBREW_PREFIX}/chruby/chruby.sh"
-
 # .ruby-version
-. "${HOMEBREW_PREFIX}/chruby/share/chruby/chruby.sh"
-. "${HOMEBREW_PREFIX}/chruby/share/chruby/auto.sh"
+source "${HOMEBREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
+source "${HOMEBREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
 
 # Global git config
 git config --global user.name "Bruno Bergher"
-git config --global user.email "me@brunobergher.com"
-
-# Case insensitive completion
-# As per https://gist.github.com/nhibberd/9d78576aab943cdb0f6c
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+git config --global user.email "me@brunobergher.com"export PATH="/usr/local/opt/node@10/bin:$PATH"
