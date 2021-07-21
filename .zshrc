@@ -6,6 +6,14 @@ for file in ~/.{path,zsh_prompt,exports,functions,extra}; do
 done
 unset file
 
+# Homebrew
+export HOMEBREW_PREFIX="/opt/homebrew";
+export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
+export HOMEBREW_REPOSITORY="/opt/homebrew";
+export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
+export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
+export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
+
 # Aliases
 source ~/dotfiles/aliases/git.sh
 source ~/dotfiles/aliases/ls.sh
@@ -18,12 +26,12 @@ source ~/dotfiles/aliases/shortcuts.sh
 
 
 # Default ruby
-source /usr/local/share/chruby/chruby.sh
+source "${HOMEBREW_PREFIX}/chruby/chruby.sh"
 
 # .ruby-version
-. /usr/local/opt/chruby/share/chruby/chruby.sh
-. /usr/local/opt/chruby/share/chruby/auto.sh
+. "${HOMEBREW_PREFIX}/chruby/share/chruby/chruby.sh"
+. "${HOMEBREW_PREFIX}/chruby/share/chruby/auto.sh"
 
 # Global git config
 git config --global user.name "Bruno Bergher"
-git config --global user.email "me@brunobergher.com"
+git config --global user.email "me@brunobergher.com"export PATH="/usr/local/opt/node@10/bin:$PATH"
