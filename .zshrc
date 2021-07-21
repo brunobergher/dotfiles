@@ -24,11 +24,15 @@ source ~/dotfiles/aliases/servers.sh
 source ~/dotfiles/aliases/scripts.sh
 source ~/dotfiles/aliases/shortcuts.sh
 
-
-# .ruby-version
+# chruby and .ruby-version
 source "${HOMEBREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
 source "${HOMEBREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" ] && . "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm" ] && . "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 # Global git config
 git config --global user.name "Bruno Bergher"
-git config --global user.email "me@brunobergher.com"export PATH="/usr/local/opt/node@10/bin:$PATH"
+git config --global user.email "me@brunobergher.com"
