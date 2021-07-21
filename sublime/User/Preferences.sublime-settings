@@ -17,7 +17,9 @@
 		".hg",
 		"CVS",
 		"sass-cache",
-		".sass-cache"
+		".sass-cache",
+		"node_modules",
+		"tmp"
 	],
 	"font_face": "Odisseia",
 	"font_size": 12,
