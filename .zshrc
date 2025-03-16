@@ -29,6 +29,11 @@ source ~/dotfiles/aliases/shortcuts.sh
 source "${HOMEBREW_PREFIX}/opt/chruby/share/chruby/chruby.sh"
 source "${HOMEBREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+	[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+	[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
 # Global git config
 git config --global user.name "Bruno Bergher"
 git config --global user.email "me@brunobergher.com"export PATH="/usr/local/opt/node@10/bin:$PATH"
