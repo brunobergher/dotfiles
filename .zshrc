@@ -34,5 +34,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm" ] && . "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # Global git config
-git config --global user.name "Bruno Bergher"
-git config --global user.email "me@brunobergher.com"
+git config --global --replace-all user.name "Bruno Bergher"
+git config --global --replace-all user.email "me@brunobergher.com"   
