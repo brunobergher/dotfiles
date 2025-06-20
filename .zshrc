@@ -35,5 +35,28 @@ export NVM_DIR="$HOME/.nvm"
 	[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # Global git config
-git config --global user.name "Bruno Bergher"
-git config --global user.email "me@brunobergher.com"export PATH="/usr/local/opt/node@10/bin:$PATH"
+git config --replace-all --global user.name "Bruno Bergher"
+git config --add --global user.email "me@brunobergher.com"
+
+# Beep when finishing long-running commandspreexec() {
+preexec() {
+    timer=$(date +%s)
+}
+
+precmd() {
+    if [ $timer ]; then
+        now=$(date +%s)
+        elapsed=$(($now-$timer))
+        
+        if [[ $elapsed -gt 10 ]]; then
+            if [[ $? -eq 0 ]]; then
+                afplay /System/Library/Sounds/Glass.aiff & 
+            else
+                afplay /System/Library/Sounds/Basso.aiff &
+            fi
+        fi
+        
+        unset timer
+    fi
+}
+
