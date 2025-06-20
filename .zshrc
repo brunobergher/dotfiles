@@ -35,4 +35,27 @@ export NVM_DIR="$HOME/.nvm"
 
 # Global git config
 git config --global --replace-all user.name "Bruno Bergher"
-git config --global --replace-all user.email "me@brunobergher.com"   
+git config --global --replace-all user.email "me@brunobergher.com"
+
+# Beep when finishing long-running commandspreexec() {
+preexec() {
+    timer=$(date +%s)
+}
+
+precmd() {
+    if [ $timer ]; then
+        now=$(date +%s)
+        elapsed=$(($now-$timer))
+        
+        if [[ $elapsed -gt 10 ]]; then
+            if [[ $? -eq 0 ]]; then
+                afplay /System/Library/Sounds/Glass.aiff & 
+            else
+                afplay /System/Library/Sounds/Basso.aiff &
+            fi
+        fi
+        
+        unset timer
+    fi
+}
+
