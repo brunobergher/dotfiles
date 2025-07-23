@@ -6,14 +6,6 @@ for file in ~/.{path,zsh_prompt,exports,functions,extra}; do
 done
 unset file
 
-# Homebrew
-export HOMEBREW_PREFIX="/opt/homebrew";
-export HOMEBREW_CELLAR="/opt/homebrew/Cellar";
-export HOMEBREW_REPOSITORY="/opt/homebrew";
-export PATH="/opt/homebrew/bin:/opt/homebrew/sbin${PATH+:$PATH}";
-export MANPATH="/opt/homebrew/share/man${MANPATH+:$MANPATH}:";
-export INFOPATH="/opt/homebrew/share/info:${INFOPATH:-}";
-
 # Aliases
 source ~/dotfiles/aliases/git.sh
 source ~/dotfiles/aliases/ls.sh
@@ -36,6 +28,7 @@ export NVM_DIR="$HOME/.nvm"
 # Global git config
 git config --global --replace-all user.name "Bruno Bergher"
 git config --global --replace-all user.email "me@brunobergher.com"
+git config --global core.editor "code"
 
 # Beep when finishing long-running commandspreexec() {
 preexec() {

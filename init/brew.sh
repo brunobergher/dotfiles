@@ -18,6 +18,7 @@ brew install git
 brew install ffmpeg
 brew install imagemagick
 brew install tree
+brew install gh
 
 # Install Ruby stuff
 install chruby
