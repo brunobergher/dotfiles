@@ -22,12 +22,10 @@ source "${HOMEBREW_PREFIX}/opt/chruby/share/chruby/auto.sh"
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" ] && . "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm" ] && . "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # Global git config
-git config --global --replace-all user.name "Bruno Bergher"
-git config --global --replace-all user.email "me@brunobergher.com"
 git config --global core.editor "code"
 
 # Beep when finishing long-running commandspreexec() {
@@ -52,3 +50,11 @@ precmd() {
     fi
 }
 
+=======
+[ -s "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" ] && . "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh"  # This loads nvm
+[ -s "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm" ] && . "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+# Global git config
+git config --global user.name "Bruno Bergher"
+git config --global user.email "me@brunobergher.com"
+>>>>>>> 713d7b6 (NVM)
