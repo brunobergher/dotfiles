@@ -26,7 +26,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
 
 # Global git config
+<<<<<<< HEAD
 git config --global core.editor "code"
+=======
+git config --replace-all --global user.name "Bruno Bergher"
+git config --replace-all --global user.email "me@brunobergher.com"
+>>>>>>> 42dfc88 (Fixes)
 
 # Beep when finishing long-running commandspreexec() {
 preexec() {
@@ -49,12 +54,3 @@ precmd() {
         unset timer
     fi
 }
-
-=======
-[ -s "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh" ] && . "${HOMEBREW_PREFIX}/opt/nvm/nvm.sh"  # This loads nvm
-[ -s "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm" ] && . "${HOMEBREW_PREFIX}/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
-# Global git config
-git config --global user.name "Bruno Bergher"
-git config --global user.email "me@brunobergher.com"
->>>>>>> 713d7b6 (NVM)
