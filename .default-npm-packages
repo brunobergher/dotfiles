@@ -1,0 +1,4 @@
+$ cat ~/.default-npm-packages
+pnpm
+npm-check-updates
+prettier
