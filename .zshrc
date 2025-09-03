@@ -49,3 +49,47 @@ precmd() {
         unset timer
     fi
 }
+
+# Auto-switch Node.js version based on .nvmrc or .node-version files
+autoload_nvm() {
+  local node_version=""
+  
+  # Check for .nvmrc first, then .node-version
+  if [[ -f ".nvmrc" ]]; then
+    node_version=$(cat .nvmrc)
+    echo "📁 Found .nvmrc specifying Node.js version: $node_version"
+  elif [[ -f ".node-version" ]]; then
+    node_version=$(cat .node-version)
+    echo "📁 Found .node-version specifying Node.js version: $node_version"
+  else
+    return
+  fi
+  
+  # Check if nvm is available
+  if ! command -v nvm &> /dev/null; then
+    echo "⚠️  nvm not found - please ensure nvm is properly installed and sourced"
+    return
+  fi
+  
+  # Get current Node.js version
+  local current_version=$(nvm current 2>/dev/null)
+  
+  # Clean up version strings for comparison (remove 'v' prefix if present)
+  local clean_target_version=${node_version#v}
+  local clean_current_version=${current_version#v}
+  
+  # Switch to the specified version if it's different from current
+  if [[ "$clean_current_version" != "$clean_target_version" ]]; then
+    echo "🔄 Switching from Node.js $current_version to $node_version"
+    nvm use "$node_version"
+  else
+    echo "✅ Already using Node.js $current_version"
+  fi
+}
+
+# Hook the function to directory changes
+autoload -U add-zsh-hook
+add-zsh-hook chpwd autoload_nvm
+
+# Also run when the shell starts (in case you're already in a directory with a version file)
+autoload_nvm
