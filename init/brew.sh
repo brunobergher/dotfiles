@@ -19,10 +19,7 @@ brew install ffmpeg
 brew install imagemagick
 brew install tree
 brew install gh
-
-# Install Ruby stuff
-install chruby
-install ruby-install
+brew install asdf
 
 # Install fuck stuff
 brew install thefuck
