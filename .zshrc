@@ -30,10 +30,41 @@ autoload -Uz compinit && compinit
 #########################################################
 # Beep when finishing long-running commands
 #########################################################
+
+# List of interactive programs that should not trigger sounds
+interactive_programs=(
+    "vi" "vim" "nvim" "nano" "emacs" "ed" "pico"  # editors
+    "less" "more" "most" "bat"                     # pagers
+    "top" "htop" "btop" "atop" "glances"           # system monitors
+    "man" "info" "help"                            # documentation viewers
+    "ssh" "mosh" "telnet" "ftp" "sftp"             # remote shells
+    "gdb" "lldb" "pdb" "ipdb"                      # debuggers
+    "irb" "pry" "python" "python3" "node" "deno"   # REPLs
+    "psql" "mysql" "sqlite3" "mongo" "redis-cli"   # database clients
+    "tig" "lazygit" "gitui"                        # git interfaces
+    "ranger" "nnn" "lf" "mc" "vifm"                # file managers
+    "tmux" "screen" "zellij"                       # terminal multiplexers
+    "watch"                                        # command watchers
+)
+
 preexec() {
     timer=$(date +%s)
     # Store the current process group to detect manual interruption
     command_pgid=$$
+    
+    # Extract the base command (first word) from the full command
+    local cmd="${1%% *}"
+    # Remove any path and get just the command name
+    cmd="${cmd##*/}"
+    
+    # Check if it's an interactive program
+    is_interactive=false
+    for prog in "${interactive_programs[@]}"; do
+        if [[ "$cmd" == "$prog" ]]; then
+            is_interactive=true
+            break
+        fi
+    done
 }
 
 precmd() {
@@ -41,8 +72,10 @@ precmd() {
         now=$(date +%s)
         elapsed=$(($now-$timer))
         exit_code=$?
+        threshold=10
         
-        if [[ $elapsed -gt 2 ]]; then
+        # Only play sound for non-interactive commands that took more than 2 seconds
+        if [[ $elapsed -gt threshold && "$is_interactive" != "true" ]]; then
             # Only play sound if command wasn't manually interrupted
             # Exit codes 130 (SIGINT/Ctrl+C) and 129 (SIGHUP) indicate manual interruption
             if [[ $exit_code -ne 130 && $exit_code -ne 129 ]]; then
@@ -58,5 +91,6 @@ precmd() {
         
         unset timer
         unset command_pgid
+        unset is_interactive
     fi
 }
