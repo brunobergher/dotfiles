@@ -20,7 +20,7 @@ source ~/dotfiles/aliases/shortcuts.sh
 git config --global core.editor "code"
 
 # asdf runtime manager
-export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 # append completions to fpath
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 # initialise completions with ZSH's compinit
