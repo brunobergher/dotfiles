@@ -1,17 +1,26 @@
 # Install Apps through Cask
+# Basics
 brew install  --cask zen
-brew install  --cask raycast
 brew install  --cask todoist
 brew install  --cask 1password
 brew install  --cask joplin
 
+# MacOS Utilities
+brew install  --cask caffeine
+brew install  --cask dato
+brew install  --cask vanilla
+brew install  --cask rocket
+brew install  --cask appcleaner
+brew install  --cask raycast
+
+# Communication
 brew install  --cask signal
-brew install  --cask spotify
 brew install  --cask whatsapp
 
-brew install  --cask caffeine
-brew install  --cask menubarclock
+# Media
+brew install  --cask spotify
 
+# Work
 brew install  --cask vscode
-brew install  --cask docker
+brew install  --cask docker-desktop
 brew install  --cask figma
