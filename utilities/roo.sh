@@ -60,6 +60,7 @@ function roo-branch() {
 
   local branch=$1
   roo-worktree "$branch"
+  git pull origin "$branch"
   roo-env
 }
 
