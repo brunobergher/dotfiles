@@ -1,9 +1,10 @@
 function roo-worktree() {
   echo "Have you merged main in?"
   echo ""
-  
+
   # Check if a branch name was provided
   if [ -z "$1" ]; then
+    echo "Creates a worktree for the given branch and switches to it."
     echo "Usage: roo-worktree <new-branch-name>"
     return 1
   fi
@@ -43,17 +44,16 @@ function roo-env() {
   # If a match is found, copy the files
   if [ -n "$val" ]; then
     echo "Coping env files for: $val"
-    cp ~/dev/roo-env/$val/.* .
-    cp ~/dev/roo-env/$val/* .
+    cp ~/dev/roo-env/$val/.* . > /dev/null 2>&1
     pnpm install
     echo "Done."
   fi
 }
 
-
 function roo-branch() {
 # Check if a branch name was provided
   if [ -z "$1" ]; then
+    echo "Creates a worktree for the given branch, switches to it and gets it ready to go."
     echo "Usage: roo-worktree <new-branch-name>"
     return 1
   fi
@@ -61,4 +61,22 @@ function roo-branch() {
   local branch=$1
   roo-worktree "$branch"
   roo-env
+}
+
+function roo-main() {
+  # Get the current directory
+  current_path=$(pwd)
+
+  # Check if the path contains "roo-ext" or "roo-cloud"
+  if [[ "$current_path" == *"roo-ext"* ]]; then
+    val="roo-ext"
+  elif [[ "$current_path" == *"roo-cloud"* ]]; then
+    val="roo-cloud"
+  else
+    echo "Not in a valid directory."
+    return 1
+  fi
+
+  cd ~/dev/$val/main
+  echo "Switched to main in $val"
 }
