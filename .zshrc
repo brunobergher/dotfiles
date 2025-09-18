@@ -16,6 +16,9 @@ source ~/dotfiles/aliases/servers.sh
 source ~/dotfiles/aliases/scripts.sh
 source ~/dotfiles/aliases/shortcuts.sh
 
+# Utilities
+source ~/dotfiles/utilities/roo-env.sh
+
 # Global git config
 git config --global core.editor "code"
 
