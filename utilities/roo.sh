@@ -81,3 +81,24 @@ function roo-main() {
   cd ~/dev/$val/main
   echo "Switched to main in $val"
 }
+
+function roo-contrib() {
+  if [ -z "$1" ]; then
+    echo "Checks out a contributor's repo and switches to the provided branch."
+    echo "Usage: roo-contrib <branch-name>"
+    echo "branch-name should have the shape of user:branch-name"
+    return 1
+  fi
+
+  local branch=$1
+  IFS=':' read -r user branch_name <<< "$branch"
+
+  echo "Checking out ${user}'s branch: ${branch_name}"
+  cd ~/dev/external-contributions
+  git clone git@github.com:${user}/Roo-Code.git Roo-Code-${user}
+  cd Roo-Code-${user} || return
+  git checkout ${branch_name}
+  pnpm install
+  code .
+  echo "Done."
+}
