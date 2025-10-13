@@ -7,6 +7,7 @@ done
 unset file
 
 # Aliases
+source ~/dotfiles/aliases/cli.sh
 source ~/dotfiles/aliases/git.sh
 source ~/dotfiles/aliases/ls.sh
 source ~/dotfiles/aliases/maintenance.sh
