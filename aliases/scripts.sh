@@ -1,0 +1,1 @@
+alias scr="~/dotfiles/scripts/scripts.rb"
