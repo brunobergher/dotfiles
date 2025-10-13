@@ -3,7 +3,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
-alias dev="cd ~/dev"§
+alias dev="cd ~/dev "
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
