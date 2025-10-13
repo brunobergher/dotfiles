@@ -15,5 +15,8 @@ alias gwr="git worktree remove"
 alias gwl="git worktree list"
 alias gup="git fetch origin && git merge origin/main"
 
+
+
+
 git config --global user.name "Bruno Bergher"
 git config --global user.email me@brunobergher.com
