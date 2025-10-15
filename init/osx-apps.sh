@@ -12,6 +12,7 @@ brew install  --cask spotify
 brew install  --cask amphetamine
 brew install  --cask dato
 brew install  --cask vanilla
+brew install  --cask reflex
 brew install  --cask rocket
 brew install  --cask appcleaner
 brew install  --cask raycast
