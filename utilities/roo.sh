@@ -1,3 +1,16 @@
+function chromedebug() {
+  nohup /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome \
+    --remote-debugging-port=9222 \
+    --user-data-dir="$HOME/dev/tmp" \
+    --no-first-run \
+    --no-default-browser-check \
+    --disable-default-apps \
+    --disable-search-engine-choice-screen \
+    "http://localhost:3000" \
+    > /dev/null 2>&1 &
+  echo "Chrome started with remote debugging on port 9222"
+}
+
 function roo-worktree() {
   echo "Have you merged main in?"
   echo ""
