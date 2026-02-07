@@ -55,14 +55,3 @@ eval "$(starship init zsh)"
 
 # Add any other tool inits here (nvm, etc)
 
-
-
-
-# ============================================
-# Zsh Syntax Highlighting
-# ============================================
-
-# Load zsh-syntax-highlighting (must be last)
-if [ -f $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
-  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
