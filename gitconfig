@@ -39,3 +39,5 @@
 	# Clean up merged branches
 	cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master' | xargs -n 1 git branch -d"
 
+[help]
+	autocorrect = 20

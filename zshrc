@@ -27,6 +27,13 @@ for function_file in $DOTFILES/functions/*.zsh; do
   [ -r "$function_file" ] && source "$function_file"
 done
 
+# Source all config files
+for config_file in $DOTFILES/config/*.zsh; do
+  if [ -r "$config_file" ]; then
+    source "$config_file"
+  fi
+done
+
 # ============================================
 # Tool Initializations
 # ============================================
@@ -42,4 +49,7 @@ fi
 eval "$(starship init zsh)"
 
 # Add any other tool inits here (nvm, etc)
+
+
+
 
