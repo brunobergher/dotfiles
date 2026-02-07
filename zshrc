@@ -45,6 +45,11 @@ elif [ -f /usr/local/bin/brew ]; then
   eval "$(/usr/local/bin/brew shellenv)"
 fi
 
+# zsh-autosuggestions
+if [ -f $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+  source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
 # Starship prompt
 eval "$(starship init zsh)"
 
@@ -53,3 +58,11 @@ eval "$(starship init zsh)"
 
 
 
+# ============================================
+# Zsh Syntax Highlighting
+# ============================================
+
+# Load zsh-syntax-highlighting (must be last)
+if [ -f $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]; then
+  source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi

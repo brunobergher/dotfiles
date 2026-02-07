@@ -11,6 +11,7 @@ brew "starship"           # Modern prompt
 # Modern CLI replacements (optional - uncomment to install)
 brew "eza"              # Better 'ls'
 brew "zoxide"           # Smarter 'cd'
+brew "zsh-autosuggestions"
 
 ### Development tools
 brew "git"
