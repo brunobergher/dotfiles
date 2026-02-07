@@ -1,0 +1,41 @@
+[user]
+	name = Bruno Bergher
+	email = me@brunobergher.com
+
+[core]
+	editor = code --wait
+
+[init]
+	defaultBranch = main
+
+[pull]
+	rebase = true
+
+[diff]
+	algorithm = histogram
+
+[color]
+	ui = auto
+
+[credential]
+	helper = osxkeychain
+
+[alias]
+	# Short status
+	s = status -s
+	
+	# Pretty log
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	
+	# Show branches
+	br = branch -v
+	
+	# Amend last commit
+	amend = commit --amend --no-edit
+	
+	# Undo last commit but keep changes
+	undo = reset HEAD~1 --soft
+	
+	# Clean up merged branches
+	cleanup = "!git branch --merged | grep -v '\\*\\|main\\|master' | xargs -n 1 git branch -d"
+
