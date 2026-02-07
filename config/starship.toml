@@ -1,100 +1,230 @@
-# Starship Configuration
-# Docs: https://starship.rs/config/
+"$schema" = 'https://starship.rs/config-schema.json'
 
-# Timeout for commands
-command_timeout = 500
-
-# Format - customize the prompt structure
 format = """
 $username\
 $hostname\
 $directory\
 $git_branch\
 $git_status\
-$git_state\
-$python\
-$nodejs\
-$rust\
-$golang\
-$docker_context\
+$time\
 $line_break\
 $character"""
 
-# Prompt character
-[character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[➜](bold red)"
+[aws]
+symbol = " "
 
-# Directory
+[buf]
+symbol = " "
+
+[bun]
+symbol = " "
+
+[c]
+symbol = " "
+
+[cpp]
+symbol = " "
+
+[cmake]
+symbol = " "
+
+[conda]
+symbol = " "
+
+[crystal]
+symbol = " "
+
+[dart]
+symbol = " "
+
+[deno]
+symbol = " "
+
 [directory]
-truncation_length = 3
-truncate_to_repo = true
-style = "bold cyan"
-read_only = " 🔒"
+read_only = " 󰌾"
 
-# Git branch
+[docker_context]
+symbol = " "
+
+[elixir]
+symbol = " "
+
+[elm]
+symbol = " "
+
+[fennel]
+symbol = " "
+
+[fortran]
+symbol = " "
+
+[fossil_branch]
+symbol = " "
+
+[gcloud]
+symbol = " "
+
 [git_branch]
-symbol = "🌱 "
-style = "bold purple"
-truncation_length = 20
+symbol = " "
+style = "bold green"
+truncation_length = 30
+truncation_symbol = "…"
+# format = "[$symbol$branch]($style) "
+format = '· [$symbol$branch(:$remote_branch)]($style) '
+# $symbol = the icon
+# $branch = the branch name
+# ($style) = applies the color/style
 
-# Git status
+
+[git_commit]
+tag_symbol = '  '
+
 [git_status]
 style = "bold yellow"
-ahead = "⇡${count}"
-diverged = "⇕⇡${ahead_count}⇣${behind_count}"
-behind = "⇣${count}"
-conflicted = "🏳"
-untracked = "🤷"
-stashed = "📦"
-modified = "📝"
-staged = '[++\($count\)](green)'
-renamed = "👅"
-deleted = "🗑"
-
-# Languages
-[python]
-symbol = "🐍 "
-style = "yellow bold"
-
-[nodejs]
-symbol = "⬢ "
-style = "bold green"
-
-[rust]
-symbol = "🦀 "
-style = "bold red"
+conflicted = "!"
+modified = "󰔷"
+deleted = ""
 
 [golang]
-symbol = "🐹 "
-style = "bold cyan"
+symbol = " "
 
-# Docker
-[docker_context]
-symbol = "🐳 "
-style = "blue bold"
+[gradle]
+symbol = " "
 
-# Username (only show when needed)
-[username]
-show_always = false
-style_user = "bold yellow"
-style_root = "bold red"
+[guix_shell]
+symbol = " "
 
-# Hostname (only show when SSH)
+[haskell]
+symbol = " "
+
+[haxe]
+symbol = " "
+
+[hg_branch]
+symbol = " "
+
 [hostname]
-ssh_only = true
-style = "bold dimmed green"
+ssh_symbol = " "
 
-# Command duration
-[cmd_duration]
-min_time = 500
-format = "took [$duration](bold yellow)"
+[java]
+symbol = " "
 
-# Battery (optional - uncomment to enable)
-# [battery]
-# full_symbol = "🔋"
-# charging_symbol = "⚡️"
-# discharging_symbol = "💀"
-# [[battery.display]]
-# threshold = 30
-# style = "bold red"
+[julia]
+symbol = " "
+
+[kotlin]
+symbol = " "
+
+[lua]
+symbol = " "
+
+[memory_usage]
+symbol = "󰍛 "
+
+[meson]
+symbol = "󰔷 "
+
+[nim]
+symbol = "󰆥 "
+
+[nix_shell]
+symbol = " "
+
+[nodejs]
+symbol = " "
+
+[ocaml]
+symbol = " "
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+AOSC = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Elementary = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Ios = "󰀷 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+Zorin = " "
+
+[package]
+symbol = "󰏗 "
+
+[perl]
+symbol = " "
+
+[php]
+symbol = " "
+
+[pijul_channel]
+symbol = " "
+
+[pixi]
+symbol = "󰏗 "
+
+[python]
+symbol = " "
+
+[rlang]
+symbol = "󰟔 "
+
+[ruby]
+symbol = " "
+
+[rust]
+symbol = "󱘗 "
+
+[scala]
+symbol = " "
+
+[status]
+symbol = " "
+
+[swift]
+symbol = " "
+
+[xmake]
+symbol = " "
+
+[zig]
+symbol = " "

@@ -1,0 +1,48 @@
+# Ghostty Configuration
+# Docs: https://ghostty.org/docs
+
+# Font configuration
+font-family = FiraCodeNerdFontMono-Regular
+font-size = 14
+
+# Font features (enable ligatures)
+font-feature = -calt
+font-feature = -liga
+
+# Theme/Colors
+# theme = dark
+
+# Window
+window-padding-x = 14
+window-padding-y = 8
+window-decoration = true
+
+# Cursor
+cursor-style = block
+cursor-style-blink = true
+
+# Shell integration
+# shell-integration = zsh
+# shell-integration-features = cursor,sudo,title
+
+# Performance
+resize-overlay = never
+
+# Keybindings (macOS style)
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
+keybind = super+t=new_tab
+keybind = super+w=close_surface
+keybind = super+n=new_window
+
+# Mouse
+mouse-hide-while-typing = true
+
+# Clipboard
+clipboard-read = allow
+clipboard-write = allow
+
+# Misc
+confirm-close-surface = false
+quit-after-last-window-closed = true
+

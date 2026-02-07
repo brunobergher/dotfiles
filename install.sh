@@ -15,6 +15,10 @@ ln -sf "$DOTFILES/gitconfig" "$HOME/.gitconfig"
 mkdir -p "$HOME/.config"
 ln -sf "$DOTFILES/starship.toml" "$HOME/.config/starship.toml"
 
+# Ghostty config
+mkdir -p "$HOME/.config/ghostty"
+ln -sf "$DOTFILES/config/ghostty/config" "$HOME/.config/ghostty/config"
+
 echo ""
 echo "Dotfiles installed!"
 echo ""

@@ -2,13 +2,9 @@
 # Homebrew Package List
 # ============================================
 
-# Taps (third-party repositories)
-# tap "homebrew/cask-fonts"
-
-# Core tools
+# Modern CLI
+cask "ghostty"
 brew "starship"           # Modern prompt
-
-# Modern CLI replacements (optional - uncomment to install)
 brew "eza"              # Better 'ls'
 brew "zoxide"           # Smarter 'cd'
 brew "zsh-autosuggestions"
@@ -45,3 +41,6 @@ cask "vscode"
 cask "docker-desktop"
 cask "figma"
 cask "loom"
+
+# Fonts
+cask "font-fira-code-nerd-font"
