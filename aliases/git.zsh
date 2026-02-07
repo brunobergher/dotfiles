@@ -13,7 +13,6 @@ alias gst="git status -s"
 alias gwa="git worktree add"
 alias gwr="git worktree remove"
 alias gwl="git worktree list"
-alias gwrm="$HOME/dotfiles/scripts/worktree-cleanup.sh"
 alias gup="git fetch origin && git merge origin/main"
 
 git config --global user.name "Bruno Bergher"

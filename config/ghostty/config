@@ -10,7 +10,7 @@ font-feature = -calt
 font-feature = -liga
 
 # Theme/Colors
-# theme = dark
+theme = Catppuccin Mocha
 
 # Window
 window-padding-x = 14
