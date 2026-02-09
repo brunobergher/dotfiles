@@ -4,10 +4,8 @@ format = """
 $username\
 $hostname\
 $directory\
-· \
 $git_branch\
 $git_status\
-· \
 $nodejs\
 $python\
 $rust\
@@ -61,6 +59,7 @@ symbol = " "
 
 [directory]
 read_only = " 󰌾"
+format = ' [ $path]($style)[$read_only]($read_only_style) '
 truncation_length = 3
 truncate_to_repo = false
 truncation_symbol = '⋯/'
@@ -81,9 +80,6 @@ symbol = " "
 [fortran]
 symbol = " "
 
-[fossil_branch]
-symbol = " "
-
 [gcloud]
 symbol = " "
 
@@ -95,17 +91,19 @@ truncation_symbol = "…"
 format = '[$symbol$branch(:$remote_branch)]($style) '
 # $symbol = the icon
 # $branch = the branch name
-# ($style) = applies the color/style
 
 
 [git_commit]
 tag_symbol = '  '
 
 [git_status]
-style = "bold yellow"
-conflicted = "!"
-modified = "󰔷"
-deleted = ""
+style = "yellow"
+conflicted = " "
+modified = " "
+deleted = " "
+untracked = ' '
+stashed = '' # 
+format = '([$all_status$ahead_behind]($style) ) '
 
 [golang]
 symbol = " "
@@ -251,7 +249,7 @@ symbol = " "
 show_always = true
 style_user = 'white'
 style_root = 'red bold'
-format = '[$user → ]($style)'
+format = '[$user]($style)'
 aliases = { "bbergher" = "bb" }
 
 [xmake]
