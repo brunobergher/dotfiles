@@ -2,6 +2,10 @@
 	name = Bruno Bergher
 	email = me@brunobergher.com
 
+# Use work email for any repo with "roo" in its path
+[includeIf "gitdir:**/*roo*/"]
+	path = ~/.gitconfig-roo
+
 [core]
 	editor = code --wait
 
