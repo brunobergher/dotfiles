@@ -13,7 +13,7 @@ ln -sf "$DOTFILES/gitconfig" "$HOME/.gitconfig"
 
 # Create config directory for starship
 mkdir -p "$HOME/.config"
-ln -sf "$DOTFILES/starship.toml" "$HOME/.config/starship.toml"
+ln -sf "$DOTFILES/config/starship.toml" "$HOME/.config/starship.toml"
 
 # Ghostty config
 mkdir -p "$HOME/.config/ghostty"

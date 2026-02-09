@@ -50,8 +50,10 @@ if [ -f $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; th
   source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
+# asdf version manager
+if [ -f "$(brew --prefix asdf)/libexec/asdf.sh" ]; then
+  . "$(brew --prefix asdf)/libexec/asdf.sh"
+fi
+
 # Starship prompt
 eval "$(starship init zsh)"
-
-# Add any other tool inits here (nvm, etc)
-

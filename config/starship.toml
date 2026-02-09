@@ -4,8 +4,27 @@ format = """
 $username\
 $hostname\
 $directory\
+· \
 $git_branch\
 $git_status\
+· \
+$nodejs\
+$python\
+$rust\
+$golang\
+$java\
+$ruby\
+$php\
+$swift\
+$kotlin\
+$lua\
+$dart\
+$bun\
+$deno\
+$docker_context\
+$package\
+$aws\
+$gcloud\
 $time\
 $line_break\
 $character"""
@@ -42,6 +61,10 @@ symbol = " "
 
 [directory]
 read_only = " 󰌾"
+truncation_length = 3
+truncate_to_repo = false
+truncation_symbol = '⋯/'
+style = 'blue'
 
 [docker_context]
 symbol = " "
@@ -66,11 +89,10 @@ symbol = " "
 
 [git_branch]
 symbol = " "
-style = "bold green"
+style = "yellow"
 truncation_length = 30
 truncation_symbol = "…"
-# format = "[$symbol$branch]($style) "
-format = '· [$symbol$branch(:$remote_branch)]($style) '
+format = '[$symbol$branch(:$remote_branch)]($style) '
 # $symbol = the icon
 # $branch = the branch name
 # ($style) = applies the color/style
@@ -132,6 +154,8 @@ symbol = " "
 
 [nodejs]
 symbol = " "
+format = '[$symbol($version )]($style)'
+style = 'purple'
 
 [ocaml]
 symbol = " "
@@ -222,6 +246,13 @@ symbol = " "
 
 [swift]
 symbol = " "
+
+[username]
+show_always = true
+style_user = 'white'
+style_root = 'red bold'
+format = '[$user → ]($style)'
+aliases = { "bbergher" = "bb" }
 
 [xmake]
 symbol = " "

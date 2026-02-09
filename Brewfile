@@ -16,28 +16,27 @@ brew "asdf"
 ### Applications (GUI apps)
 cask "visual-studio-code"
 cask "zen"
-cask "todoist"
+cask "todoist-app"
 cask "1password"
 
 # Media
 cask "spotify"
 
 # Utilities
-cask "amphetamine"
-cask "dato"
+# cask "amphetamine"
+# cask "dato"
 cask "vanilla"
-cask "reflex"
+cask "reflex-app"
 cask "rocket"
 cask "appcleaner"
 cask "raycast"
-cask "web-catalog"
+# cask "web-catalog"
 
 # Communication
 cask "signal"
 cask "whatsapp"
 
 # Work
-cask "vscode"
 cask "docker-desktop"
 cask "figma"
 cask "loom"
