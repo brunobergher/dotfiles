@@ -12,6 +12,10 @@ font-feature = -liga
 # Theme/Colors
 theme = Catppuccin Mocha
 
+# Icon
+macos-custom-icon = ~/Config/ghostty/icon_256x256@2x.png
+macos-icon = custom
+
 # Window
 window-padding-x = 14
 window-padding-y = 8
