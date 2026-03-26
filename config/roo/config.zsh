@@ -75,6 +75,13 @@ function roo-branch() {
   roo-worktree "$branch"
   git pull origin "$branch"
   roo-env
+
+  # Copy cached releases/ content from main worktree
+  if [ -d "../main/releases" ]; then
+    echo "Copying releases/ from main worktree..."
+    cp -R ../main/releases . 2>/dev/null
+    echo "Done copying releases/."
+  fi
 }
 
 function roo-main() {
