@@ -12,7 +12,7 @@ function chromedebug() {
 }
 
 function roo-worktree() {
-  echo "Have you merged main in?"
+  echo "Have you merged develop in?"
   echo ""
 
   # Check if a branch name was provided
@@ -25,13 +25,13 @@ function roo-worktree() {
   local branch=$1
   local current_dir_name=${PWD##*/}
 
-  # Check if the current directory is named "main"
-  if [ "$current_dir_name" != "main" ]; then
-    echo "Not in main, make sure to be in the directory for the main brnach."
+  # Check if the current directory is named "develop"
+  if [ "$current_dir_name" != "develop" ]; then
+    echo "Not in develop, make sure to be in the directory for the develop branch."
     return 1
   fi
 
-  # If in "main", create the git worktree
+  # If in "develop", create the git worktree
   echo "Creating new worktree and branch: $branch"
   git worktree add -b "$branch" "../$branch"
 
@@ -76,15 +76,15 @@ function roo-branch() {
   git pull origin "$branch"
   roo-env
 
-  # Copy cached releases/ content from main worktree
-  if [ -d "../main/releases" ]; then
-    echo "Copying releases/ from main worktree..."
-    cp -R ../main/releases . 2>/dev/null
+  # Copy cached releases/ content from develop worktree
+  if [ -d "../develop/releases" ]; then
+    echo "Copying releases/ from develop worktree..."
+    cp -R ../develop/releases . 2>/dev/null
     echo "Done copying releases/."
   fi
 }
 
-function roo-main() {
+function roo-develop() {
   # Get the current directory
   current_path=$(pwd)
 
@@ -98,8 +98,8 @@ function roo-main() {
     return 1
   fi
 
-  cd ~/dev/$val/main
-  echo "Switched to main in $val"
+  cd ~/dev/$val/develop
+  echo "Switched to develop in $val"
 }
 
 function roo-contrib() {
