@@ -56,9 +56,17 @@ function roo-env() {
 
   # If a match is found, copy the files
   if [ -n "$val" ]; then
-    echo "Coping env files for: $val"
-    cp ~/dev/roo-env/$val/.* . > /dev/null 2>&1
+    echo "Copying env files for: $val"
+    cp ~/dev/roo-env/$val/.env* . 2>/dev/null
     pnpm install
+
+    # Ensure git hooks are initialized in worktrees where .git is a file,
+    # not a directory (some prepare scripts guard with [ -d .git ] which fails).
+    if [[ -d ".husky" ]] && ! [[ -d ".husky/_" ]]; then
+      echo "Initializing git hooks (husky)..."
+      npx husky 2>/dev/null
+    fi
+
     echo "Done."
   fi
 }
@@ -77,9 +85,9 @@ function roo-branch() {
   roo-env
 
   # Copy cached releases/ content from develop worktree
-  if [ -d "../develop/releases" ]; then
+  if [ -d "../../develop/releases" ]; then
     echo "Copying releases/ from develop worktree..."
-    cp -R ../develop/releases . 2>/dev/null
+    cp -R ../../develop/releases ./releases/ 2>/dev/null
     echo "Done copying releases/."
   fi
 }

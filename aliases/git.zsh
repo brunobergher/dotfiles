@@ -77,6 +77,15 @@ function gwcreate() {
     composer install
   fi
 
+  # Ensure git hooks are initialized in the worktree.
+  # Some projects guard their prepare script with [ -d .git ] which fails in
+  # worktrees where .git is a file, not a directory. Run husky explicitly to
+  # guarantee hooks are set up.
+  if [[ -d ".husky" ]] && ! [[ -d ".husky/_" ]]; then
+    echo "\e[1;36m🪝 Initializing git hooks (husky)\e[0m"
+    npx husky 2>/dev/null
+  fi
+
   echo "\e[1;32m✓ Worktree ready at ../$branch\e[0m"
 }
 
