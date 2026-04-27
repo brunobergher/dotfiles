@@ -14,6 +14,208 @@ alias gwa="git worktree add"
 alias gwr="git worktree remove"
 alias gwl="git worktree list"
 
+# Interactively clean up worktrees (optionally filtered by branch)
+function gwcleanup() {
+  emulate -L zsh
+  setopt localoptions noxtrace
+  set +x
+  set +v
+
+  local branch_filter=""
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -h|--help)
+        echo "\e[1;33mInteractively delete git worktrees.\e[0m"
+        echo "Usage: gwcleanup [branch]"
+        echo "Deletion uses --force after confirmation."
+        return 0
+        ;;
+      *)
+        if [[ "$1" == -* ]]; then
+          echo "\e[1;31m✗ Unknown option: $1\e[0m"
+          echo "Usage: gwcleanup [branch]"
+          return 1
+        fi
+        if [[ -n "$branch_filter" ]]; then
+          echo "\e[1;31m✗ Too many arguments.\e[0m"
+          echo "Usage: gwcleanup [branch]"
+          return 1
+        fi
+        branch_filter="$1"
+        ;;
+    esac
+    shift
+  done
+
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "\e[1;31m✗ Not inside a git repository.\e[0m"
+    return 1
+  fi
+
+  local current_worktree
+  current_worktree=$(git rev-parse --show-toplevel 2>/dev/null)
+
+  local -a lines candidate_paths candidate_branches candidate_dates selected_paths
+  local record_path="" record_branch="" line
+  lines=("${(@f)$(git worktree list --porcelain)}")
+
+  {
+    for line in "${lines[@]}" ""; do
+      if [[ "$line" == worktree\ * ]]; then
+        if [[ -n "$record_path" ]]; then
+          local normalized_branch="${record_branch#refs/heads/}"
+          [[ -z "$normalized_branch" ]] && normalized_branch="detached"
+          if [[ "${record_path:A}" != "${current_worktree:A}" ]] && { [[ -z "$branch_filter" ]] || [[ "$normalized_branch" == "$branch_filter" ]]; }; then
+            local last_commit_date
+            last_commit_date=$(git -C "$record_path" log -1 --date=format:'%Y-%m-%d %H:%M' --format='%cd' 2>/dev/null)
+            [[ -z "$last_commit_date" ]] && last_commit_date="unknown"
+            candidate_paths+=("$record_path")
+            candidate_branches+=("$normalized_branch")
+            candidate_dates+=("$last_commit_date")
+          fi
+        fi
+        record_path="${line#worktree }"
+        record_branch=""
+        continue
+      fi
+
+      if [[ -z "$line" ]]; then
+        if [[ -n "$record_path" ]]; then
+          local normalized_branch="${record_branch#refs/heads/}"
+          [[ -z "$normalized_branch" ]] && normalized_branch="detached"
+          if [[ "${record_path:A}" != "${current_worktree:A}" ]] && { [[ -z "$branch_filter" ]] || [[ "$normalized_branch" == "$branch_filter" ]]; }; then
+            local last_commit_date
+            last_commit_date=$(git -C "$record_path" log -1 --date=format:'%Y-%m-%d %H:%M' --format='%cd' 2>/dev/null)
+            [[ -z "$last_commit_date" ]] && last_commit_date="unknown"
+            candidate_paths+=("$record_path")
+            candidate_branches+=("$normalized_branch")
+            candidate_dates+=("$last_commit_date")
+          fi
+        fi
+        record_path=""
+        record_branch=""
+        continue
+      fi
+
+      if [[ "$line" == branch\ * ]]; then
+        record_branch="${line#branch }"
+      fi
+    done
+  } 2>/dev/null
+
+  if (( ${#candidate_paths[@]} == 0 )); then
+    if [[ -n "$branch_filter" ]]; then
+      echo "\e[1;33mNo removable worktrees found for branch '$branch_filter'.\e[0m"
+    else
+      echo "\e[1;33mNo removable worktrees found.\e[0m"
+    fi
+    return 0
+  fi
+
+  if command -v fzf >/dev/null 2>&1; then
+    local -a picker_rows picked_rows
+    local idx
+    for (( idx=1; idx<=${#candidate_paths[@]}; idx++ )); do
+      picker_rows+=("$idx"$'\t'"${candidate_dates[$idx]}"$'\t'"${candidate_branches[$idx]}"$'\t'"${candidate_paths[$idx]}")
+    done
+
+    picked_rows=("${(@f)$(printf '%s\n' "${picker_rows[@]}" | fzf --multi --delimiter=$'\t' --with-nth=1,2,3 --prompt='gwcleanup > ' --header='number | last_commit_date | branch (TAB to select, ENTER to confirm)')}")
+
+    if (( ${#picked_rows[@]} == 0 )); then
+      echo "\e[1;33mCancelled.\e[0m"
+      return 0
+    fi
+
+    for line in "${picked_rows[@]}"; do
+      local selected_idx="${line%%$'\t'*}"
+      if [[ "$selected_idx" == <-> ]] && (( selected_idx >= 1 && selected_idx <= ${#candidate_paths[@]} )); then
+        selected_paths+=("${candidate_paths[$selected_idx]}")
+      fi
+    done
+  else
+    echo "\e[1;36mAvailable worktrees:\e[0m"
+    local idx
+    for (( idx=1; idx<=${#candidate_paths[@]}; idx++ )); do
+      printf "%2d) %-16s %-24s\n" "$idx" "${candidate_dates[$idx]}" "${candidate_branches[$idx]}"
+    done
+
+    local selection
+    read "selection?Enter worktree numbers to delete (comma-separated): "
+    if [[ -z "$selection" ]]; then
+      echo "\e[1;33mCancelled.\e[0m"
+      return 0
+    fi
+
+    local -a parts
+    parts=("${(@s:,:)selection}")
+    local part
+    for part in "${parts[@]}"; do
+      local trimmed="${part//[[:space:]]/}"
+      if [[ "$trimmed" != <-> ]]; then
+        continue
+      fi
+      if (( trimmed >= 1 && trimmed <= ${#candidate_paths[@]} )); then
+        selected_paths+=("${candidate_paths[$trimmed]}")
+      fi
+    done
+  fi
+
+  if (( ${#selected_paths[@]} == 0 )); then
+    echo "\e[1;33mNo valid worktrees selected.\e[0m"
+    return 0
+  fi
+
+  typeset -A seen_paths
+  local -a unique_paths
+  local selected_path
+  for selected_path in "${selected_paths[@]}"; do
+    if [[ -z "${seen_paths[$selected_path]}" ]]; then
+      seen_paths[$selected_path]=1
+      unique_paths+=("$selected_path")
+    fi
+  done
+  selected_paths=("${unique_paths[@]}")
+
+  echo "\e[1;33mWorktrees selected for deletion:\e[0m"
+  printf "  %s\n" "${selected_paths[@]}"
+
+  local confirm
+  read "confirm?Delete selected worktrees? [y/N]: "
+  if [[ "$confirm:l" != "y" && "$confirm:l" != "yes" ]]; then
+    echo "\e[1;33mCancelled.\e[0m"
+    return 0
+  fi
+
+  local removed_count=0 failed_count=0
+  for selected_path in "${selected_paths[@]}"; do
+    echo "\e[1;36m⟳ Removing $selected_path\e[0m"
+    git worktree remove --force "$selected_path"
+
+    if [[ $? -ne 0 ]]; then
+      ((failed_count++))
+      continue
+    fi
+
+    # git worktree remove usually deletes the directory too; this ensures
+    # leftover files are removed if the folder still exists for any reason.
+    if [[ -d "$selected_path" ]]; then
+      rm -rf "$selected_path"
+    fi
+
+    ((removed_count++))
+  done
+
+  git worktree prune >/dev/null 2>&1
+
+  if (( failed_count > 0 )); then
+    echo "\e[1;31m✗ Removed $removed_count worktree(s), failed to remove $failed_count.\e[0m"
+    return 1
+  fi
+
+  echo "\e[1;32m✓ Removed $removed_count worktree(s).\e[0m"
+}
+
 # Create a worktree, copy env files, and install dependencies
 function gwcreate() {
   if [[ -z "$1" ]]; then
