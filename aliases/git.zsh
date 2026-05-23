@@ -341,6 +341,17 @@ function gwcreate() {
 
   cd "$target_dir" || return 1
 
+  # Ensure upstream is configured when a matching remote branch exists.
+  if git remote get-url "$remote" >/dev/null 2>&1; then
+    if ! git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
+      if git ls-remote --exit-code --heads "$remote" "$branch" >/dev/null 2>&1; then
+        if git branch --set-upstream-to="$remote/$branch" "$branch" >/dev/null 2>&1; then
+          echo "\e[1;36mℹ Set upstream to $remote/$branch\e[0m"
+        fi
+      fi
+    fi
+  fi
+
   # Pull latest branch changes when origin is available.
   if git remote get-url "$remote" >/dev/null 2>&1; then
     if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
