@@ -273,6 +273,8 @@ function gwcreate() {
 
   local source_dir="$repo_root"
   local default_branch_worktree=""
+  local existing_branch_worktree=""
+  local existing_target_worktree=""
   if [[ -n "$default_branch" ]]; then
     local -a wt_lines
     local wt_path="" wt_branch="" wt_line
@@ -289,7 +291,12 @@ function gwcreate() {
       if [[ -z "$wt_line" ]]; then
         if [[ -n "$wt_path" && "$wt_branch" == "$default_branch" ]]; then
           default_branch_worktree="$wt_path"
-          break
+        fi
+        if [[ -n "$wt_path" && "$wt_branch" == "$branch" ]]; then
+          existing_branch_worktree="$wt_path"
+        fi
+        if [[ -n "$wt_path" && "${wt_path:A}" == "${target_dir:A}" ]]; then
+          existing_target_worktree="$wt_path"
         fi
         wt_path=""
         wt_branch=""
@@ -312,21 +319,48 @@ function gwcreate() {
   # Create worktree in selected layout container
   echo "\e[1;36m⟳ Creating worktree for branch: $branch\e[0m"
   echo "\e[1;36mℹ Layout: $layout_mode ($target_dir)\e[0m"
-  if ! git worktree add -b "$branch" "$target_dir" 2>/dev/null; then
-    # Branch might already exist, try without -b
-    if ! git worktree add "$target_dir" "$branch" 2>/dev/null; then
-      echo "\e[1;31m✗ Failed to create worktree. Branch may already have a worktree.\e[0m"
+  if [[ -n "$existing_branch_worktree" ]]; then
+    target_dir="$existing_branch_worktree"
+    echo "\e[1;36mℹ Reusing existing worktree for branch at $target_dir\e[0m"
+  elif [[ -n "$existing_target_worktree" ]]; then
+    target_dir="$existing_target_worktree"
+    echo "\e[1;36mℹ Reusing existing worktree at $target_dir\e[0m"
+  else
+    if [[ -e "$target_dir" ]]; then
+      echo "\e[1;31m✗ Target path exists and is not a registered worktree: $target_dir\e[0m"
       return 1
+    fi
+    if ! git worktree add -b "$branch" "$target_dir" 2>/dev/null; then
+      # Branch might already exist, try without -b
+      if ! git worktree add "$target_dir" "$branch" 2>/dev/null; then
+        echo "\e[1;31m✗ Failed to create worktree.\e[0m"
+        return 1
+      fi
     fi
   fi
 
   cd "$target_dir" || return 1
 
+  # Pull latest branch changes when origin is available.
+  if git remote get-url "$remote" >/dev/null 2>&1; then
+    if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
+      echo "\e[1;36m↓ Pulling latest from upstream\e[0m"
+      git pull --ff-only
+    elif git ls-remote --exit-code --heads "$remote" "$branch" >/dev/null 2>&1; then
+      echo "\e[1;36m↓ Pulling $remote/$branch\e[0m"
+      git pull --ff-only "$remote" "$branch"
+    else
+      echo "\e[1;36mℹ No remote branch $remote/$branch yet; skipping pull.\e[0m"
+    fi
+  else
+    echo "\e[1;36mℹ No '$remote' remote configured; skipping pull.\e[0m"
+  fi
+
   # Copy env files from source worktree
   local env_files=("$source_dir"/.env*)
   if [[ -e "${env_files[1]}" ]]; then
     echo "\e[1;36m📋 Copying env files from source worktree\e[0m"
-    cp "$source_dir"/.env* . 2>/dev/null
+    command cp -f "$source_dir"/.env* . 2>/dev/null
   fi
 
   # Auto-detect package manager and install dependencies
