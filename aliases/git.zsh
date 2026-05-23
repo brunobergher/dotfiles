@@ -1,7 +1,6 @@
 alias gad="git add"
 alias gal="git add . && git add -u && echo -e \"\033[42m Added all changes: \033[40m\" && gst"
 alias gam="git commit --amend"
-alias gbr="git branch"
 alias gcl="git clean -fd"
 alias gco="git checkout"
 alias gcm="git commit -m"
@@ -225,19 +224,103 @@ function gwcreate() {
   fi
 
   local branch="$1"
-  local source_dir="$PWD"
+  local remote="origin"
 
-  # Create worktree as sibling directory
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "\e[1;31m✗ Not inside a git repository.\e[0m"
+    return 1
+  fi
+
+  local repo_root
+  repo_root=$(git rev-parse --show-toplevel 2>/dev/null)
+  if [[ -z "$repo_root" ]]; then
+    echo "\e[1;31m✗ Could not determine repository root.\e[0m"
+    return 1
+  fi
+
+  local repo_parent="${repo_root:h}"
+  local repo_root_name="${repo_root:t}"
+  local current_branch
+  current_branch=$(git symbolic-ref --short HEAD 2>/dev/null)
+
+  local default_branch=""
+  default_branch=$(git symbolic-ref --short "refs/remotes/${remote}/HEAD" 2>/dev/null)
+  default_branch="${default_branch#${remote}/}"
+  if [[ -z "$default_branch" ]]; then
+    default_branch=$(git remote show "$remote" 2>/dev/null | sed -n 's/.*HEAD branch: //p')
+  fi
+
+  local branch_container="$repo_parent"
+  local layout_mode="branch-dir"
+  local layout_ok=0
+  if [[ -n "$current_branch" && "$repo_root_name" == "$current_branch" ]]; then
+    layout_ok=1
+  elif [[ -n "$default_branch" && "$repo_root_name" == "$default_branch" ]]; then
+    layout_ok=1
+  elif [[ "$repo_root_name" == "main" || "$repo_root_name" == "master" || "$repo_root_name" == "develop" ]]; then
+    layout_ok=1
+  fi
+
+  if (( layout_ok == 0 )); then
+    echo "\e[1;31m✗ This repo is not in enforced branch-folder layout.\e[0m"
+    echo "Expected to run from a branch folder like .../<repo>/main (or master/develop)."
+    echo "Current repo root is: $repo_root"
+    echo "Use gbrco <repo-url-or-owner/repo> to clone into the expected layout."
+    return 1
+  fi
+
+  local target_dir="${branch_container}/${branch}"
+
+  local source_dir="$repo_root"
+  local default_branch_worktree=""
+  if [[ -n "$default_branch" ]]; then
+    local -a wt_lines
+    local wt_path="" wt_branch="" wt_line
+    wt_lines=("${(@f)$(git worktree list --porcelain)}")
+    for wt_line in "${wt_lines[@]}" ""; do
+      if [[ "$wt_line" == worktree\ * ]]; then
+        wt_path="${wt_line#worktree }"
+        continue
+      fi
+      if [[ "$wt_line" == branch\ * ]]; then
+        wt_branch="${wt_line#branch refs/heads/}"
+        continue
+      fi
+      if [[ -z "$wt_line" ]]; then
+        if [[ -n "$wt_path" && "$wt_branch" == "$default_branch" ]]; then
+          default_branch_worktree="$wt_path"
+          break
+        fi
+        wt_path=""
+        wt_branch=""
+      fi
+    done
+  fi
+
+  if [[ -n "$default_branch_worktree" ]]; then
+    source_dir="$default_branch_worktree"
+  fi
+
+  if [[ -n "$default_branch" && "$current_branch" != "$default_branch" ]]; then
+    if [[ -n "$default_branch_worktree" ]]; then
+      echo "\e[1;36mℹ Using $default_branch_worktree ($default_branch) as setup source.\e[0m"
+    else
+      echo "\e[1;33m⚠ Not on $default_branch and no $default_branch worktree found; using current worktree as setup source.\e[0m"
+    fi
+  fi
+
+  # Create worktree in selected layout container
   echo "\e[1;36m⟳ Creating worktree for branch: $branch\e[0m"
-  if ! git worktree add -b "$branch" "../$branch" 2>/dev/null; then
+  echo "\e[1;36mℹ Layout: $layout_mode ($target_dir)\e[0m"
+  if ! git worktree add -b "$branch" "$target_dir" 2>/dev/null; then
     # Branch might already exist, try without -b
-    if ! git worktree add "../$branch" "$branch" 2>/dev/null; then
+    if ! git worktree add "$target_dir" "$branch" 2>/dev/null; then
       echo "\e[1;31m✗ Failed to create worktree. Branch may already have a worktree.\e[0m"
       return 1
     fi
   fi
 
-  cd "../$branch" || return 1
+  cd "$target_dir" || return 1
 
   # Copy env files from source worktree
   local env_files=("$source_dir"/.env*)
@@ -288,8 +371,80 @@ function gwcreate() {
     npx husky 2>/dev/null
   fi
 
-  echo "\e[1;32m✓ Worktree ready at ../$branch\e[0m"
+  echo "\e[1;32m✓ Worktree ready at $target_dir\e[0m"
 }
+
+# Checkout a repo into enforced branch-folder layout under ~/dev/<repo>/<default-branch>
+function gbrco() {
+  if [[ -z "$1" || "$1" == "-h" || "$1" == "--help" ]]; then
+    echo "\e[1;33mClones a repo into ~/dev/<repo>/<default-branch> and switches there.\e[0m"
+    echo "Usage: gbrco <repo-url-or-owner/repo> [default-branch]"
+    return 0
+  fi
+
+  local input="$1"
+  local requested_branch="$2"
+  local repo_url=""
+  local repo_slug=""
+  local repo_name=""
+
+  if [[ "$input" == git@* || "$input" == http://* || "$input" == https://* || "$input" == ssh://* ]]; then
+    repo_url="$input"
+  elif [[ "$input" == */* ]]; then
+    repo_url="git@github.com:${input}.git"
+  else
+    echo "\e[1;31m✗ Invalid repo identifier: $input\e[0m"
+    echo "Use a full git URL or owner/repo."
+    return 1
+  fi
+
+  repo_slug="${repo_url##*/}"
+  repo_name="${repo_slug%.git}"
+
+  if [[ -z "$repo_name" ]]; then
+    echo "\e[1;31m✗ Could not determine repo name from input.\e[0m"
+    return 1
+  fi
+
+  local container="$HOME/dev/$repo_name"
+  local default_branch="$requested_branch"
+
+  if [[ -z "$default_branch" ]]; then
+    default_branch=$(git ls-remote --symref "$repo_url" HEAD 2>/dev/null | sed -n 's#^ref: refs/heads/\([^[:space:]]*\)[[:space:]]*HEAD#\1#p')
+  fi
+  [[ -z "$default_branch" ]] && default_branch="main"
+
+  local target_dir="$container/$default_branch"
+
+  if [[ -d "$target_dir/.git" || -f "$target_dir/.git" ]]; then
+    echo "\e[1;36mℹ Existing checkout found at $target_dir\e[0m"
+    cd "$target_dir" || return 1
+    return 0
+  fi
+
+  if [[ -d "$container/.git" || -f "$container/.git" ]]; then
+    echo "\e[1;31m✗ Found a plain clone at $container, which conflicts with enforced layout.\e[0m"
+    echo "Move it to $target_dir (or reclone) before using gbr/gwcreate."
+    return 1
+  fi
+
+  mkdir -p "$container" || {
+    echo "\e[1;31m✗ Failed to create $container\e[0m"
+    return 1
+  }
+
+  echo "\e[1;36m⟳ Cloning $repo_url into $target_dir\e[0m"
+  if ! git clone --branch "$default_branch" "$repo_url" "$target_dir"; then
+    echo "\e[1;31m✗ Clone failed.\e[0m"
+    return 1
+  fi
+
+  cd "$target_dir" || return 1
+  echo "\e[1;32m✓ Ready at $target_dir\e[0m"
+}
+
+# Create and switch to a new branch worktree
+alias gbr="gwcreate"
 
 # Update current branch with the repo's default branch
 function gup() {
