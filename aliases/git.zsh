@@ -344,11 +344,29 @@ function gwcreate() {
   # Pull latest branch changes when origin is available.
   if git remote get-url "$remote" >/dev/null 2>&1; then
     if git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
-      echo "\e[1;36m↓ Pulling latest from upstream\e[0m"
-      git pull --ff-only
+      local upstream_ref
+      upstream_ref=$(git rev-parse --abbrev-ref --symbolic-full-name "@{u}" 2>/dev/null)
+      echo "\e[1;36m↓ Checking sync with $upstream_ref\e[0m"
+      git fetch "$remote" >/dev/null 2>&1
+      local counts ahead behind
+      counts=$(git rev-list --left-right --count "HEAD...$upstream_ref" 2>/dev/null)
+      ahead="${counts%% *}"
+      behind="${counts##* }"
+      ahead="${ahead:-0}"
+      behind="${behind:-0}"
+      if (( behind > 0 && ahead == 0 )); then
+        echo "\e[1;36m↓ Fast-forwarding from $upstream_ref\e[0m"
+        git pull --ff-only
+      elif (( ahead > 0 && behind > 0 )); then
+        echo "\e[1;33m⚠ Branch is diverged from $upstream_ref; skipping pull (rebase/merge manually).\e[0m"
+      else
+        echo "\e[1;36mℹ Branch already up to date with $upstream_ref.\e[0m"
+      fi
     elif git ls-remote --exit-code --heads "$remote" "$branch" >/dev/null 2>&1; then
       echo "\e[1;36m↓ Pulling $remote/$branch\e[0m"
-      git pull --ff-only "$remote" "$branch"
+      if ! git pull --ff-only "$remote" "$branch"; then
+        echo "\e[1;33m⚠ Could not fast-forward from $remote/$branch; continuing setup.\e[0m"
+      fi
     else
       echo "\e[1;36mℹ No remote branch $remote/$branch yet; skipping pull.\e[0m"
     fi
