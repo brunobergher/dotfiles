@@ -385,11 +385,17 @@ function gwcreate() {
     echo "\e[1;36mℹ No '$remote' remote configured; skipping pull.\e[0m"
   fi
 
-  # Copy env files from source worktree
-  local env_files=("$source_dir"/.env*)
-  if [[ -e "${env_files[1]}" ]]; then
+  # Copy top-level .env files from the source worktree into the new worktree.
+  local -a env_files
+  local env_file
+  env_files=("$source_dir"/.env*(N))
+  if (( ${#env_files[@]} > 0 )); then
     echo "\e[1;36m📋 Copying env files from source worktree\e[0m"
-    command cp -f "$source_dir"/.env* . 2>/dev/null
+    for env_file in "${env_files[@]}"; do
+      if [[ -f "$env_file" || -L "$env_file" ]]; then
+        command cp -f "$env_file" .
+      fi
+    done
   fi
 
   # Auto-detect package manager and install dependencies
