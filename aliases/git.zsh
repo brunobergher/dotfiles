@@ -225,6 +225,7 @@ function gwcreate() {
 
   local branch="$1"
   local remote="origin"
+  local remote_branch_ref=""
 
   if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
     echo "\e[1;31m✗ Not inside a git repository.\e[0m"
@@ -316,6 +317,19 @@ function gwcreate() {
     fi
   fi
 
+  # Fetch a matching remote branch so we can base the worktree on the actual
+  # upstream branch tip instead of the current default-branch checkout.
+  if git remote get-url "$remote" >/dev/null 2>&1; then
+    if git ls-remote --exit-code --heads "$remote" "$branch" >/dev/null 2>&1; then
+      echo "\e[1;36m↓ Fetching $remote/$branch\e[0m"
+      if git fetch "$remote" "$branch" >/dev/null 2>&1 && git show-ref --verify --quiet "refs/remotes/$remote/$branch"; then
+        remote_branch_ref="$remote/$branch"
+      else
+        echo "\e[1;33m⚠ Could not fetch $remote/$branch; falling back to local branch creation.\e[0m"
+      fi
+    fi
+  fi
+
   # Create worktree in selected layout container
   echo "\e[1;36m⟳ Creating worktree for branch: $branch\e[0m"
   echo "\e[1;36mℹ Layout: $layout_mode ($target_dir)\e[0m"
@@ -330,7 +344,17 @@ function gwcreate() {
       echo "\e[1;31m✗ Target path exists and is not a registered worktree: $target_dir\e[0m"
       return 1
     fi
-    if ! git worktree add -b "$branch" "$target_dir" 2>/dev/null; then
+    if git show-ref --verify --quiet "refs/heads/$branch"; then
+      if ! git worktree add "$target_dir" "$branch" 2>/dev/null; then
+        echo "\e[1;31m✗ Failed to create worktree.\e[0m"
+        return 1
+      fi
+    elif [[ -n "$remote_branch_ref" ]]; then
+      if ! git worktree add --track -b "$branch" "$target_dir" "$remote_branch_ref" 2>/dev/null; then
+        echo "\e[1;31m✗ Failed to create worktree from $remote_branch_ref.\e[0m"
+        return 1
+      fi
+    elif ! git worktree add -b "$branch" "$target_dir" 2>/dev/null; then
       # Branch might already exist, try without -b
       if ! git worktree add "$target_dir" "$branch" 2>/dev/null; then
         echo "\e[1;31m✗ Failed to create worktree.\e[0m"
@@ -344,7 +368,7 @@ function gwcreate() {
   # Ensure upstream is configured when a matching remote branch exists.
   if git remote get-url "$remote" >/dev/null 2>&1; then
     if ! git rev-parse --abbrev-ref --symbolic-full-name "@{u}" >/dev/null 2>&1; then
-      if git ls-remote --exit-code --heads "$remote" "$branch" >/dev/null 2>&1; then
+      if [[ -n "$remote_branch_ref" ]] || git ls-remote --exit-code --heads "$remote" "$branch" >/dev/null 2>&1; then
         if git branch --set-upstream-to="$remote/$branch" "$branch" >/dev/null 2>&1; then
           echo "\e[1;36mℹ Set upstream to $remote/$branch\e[0m"
         fi
@@ -359,12 +383,13 @@ function gwcreate() {
       upstream_ref=$(git rev-parse --abbrev-ref --symbolic-full-name "@{u}" 2>/dev/null)
       echo "\e[1;36m↓ Checking sync with $upstream_ref\e[0m"
       git fetch "$remote" >/dev/null 2>&1
-      local counts ahead behind
+      local counts normalized_counts ahead behind
+      local -a count_parts
       counts=$(git rev-list --left-right --count "HEAD...$upstream_ref" 2>/dev/null)
-      ahead="${counts%% *}"
-      behind="${counts##* }"
-      ahead="${ahead:-0}"
-      behind="${behind:-0}"
+      normalized_counts="${counts//$'\t'/ }"
+      count_parts=(${=normalized_counts})
+      ahead="${count_parts[1]:-0}"
+      behind="${count_parts[2]:-0}"
       if (( behind > 0 && ahead == 0 )); then
         echo "\e[1;36m↓ Fast-forwarding from $upstream_ref\e[0m"
         git pull --ff-only
