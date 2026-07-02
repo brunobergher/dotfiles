@@ -54,5 +54,8 @@ fi
 export ASDF_DATA_DIR="${ASDF_DATA_DIR:-$HOME/.asdf}"
 export PATH="$ASDF_DATA_DIR/shims:$PATH"
 
+# mise version manager (project-aware toolchain)
+eval "$(/opt/homebrew/bin/mise activate zsh)"
+
 # Starship prompt
 eval "$(starship init zsh)"
