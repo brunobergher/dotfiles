@@ -215,10 +215,10 @@ function gwcleanup() {
   echo "\e[1;32m✓ Removed $removed_count worktree(s).\e[0m"
 }
 
-# Create a worktree, copy env files, and install dependencies
+# Create a worktree, copy .env.local, and install dependencies
 function gwcreate() {
   if [[ -z "$1" ]]; then
-    echo "\e[1;33mCreates a worktree for a new branch, copies env files, and installs dependencies.\e[0m"
+    echo "\e[1;33mCreates a worktree for a new branch, copies .env.local, and installs dependencies.\e[0m"
     echo "Usage: gwcreate <branch-name>"
     return 1
   fi
@@ -410,12 +410,12 @@ function gwcreate() {
     echo "\e[1;36mℹ No '$remote' remote configured; skipping pull.\e[0m"
   fi
 
-  # Copy top-level .env files from the source worktree into the new worktree.
+  # Copy top-level .env.local from the source worktree into the new worktree.
   local -a env_files
   local env_file
-  env_files=("$source_dir"/.env*(N))
+  env_files=("$source_dir"/.env.local(N))
   if (( ${#env_files[@]} > 0 )); then
-    echo "\e[1;36m📋 Copying env files from source worktree\e[0m"
+    echo "\e[1;36m📋 Copying .env.local from source worktree\e[0m"
     for env_file in "${env_files[@]}"; do
       if [[ -f "$env_file" || -L "$env_file" ]]; then
         command cp -f "$env_file" .
