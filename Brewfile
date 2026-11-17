@@ -12,34 +12,38 @@ brew "zsh-autosuggestions"
 ### Development tools
 brew "git"
 brew "asdf"
+cask "docker-desktop"
 
 ### Applications (GUI apps)
+cask "1password"
+cask "chatgpt"
+cask "claude"
+cask "fastmail"
+cask "google-chrome"
+cask "openwhispr"
+cask "todoist-app"
 cask "visual-studio-code"
 cask "zen"
-cask "todoist-app"
-cask "1password"
 
 # Media
 cask "spotify"
+cask "stremio"
 
 # Utilities
-# cask "amphetamine"
-# cask "dato"
-cask "vanilla"
-cask "reflex-app"
-cask "rocket"
+cask "caffeine"
 cask "appcleaner"
+cask "dato"
 cask "raycast"
-# cask "web-catalog"
+cask "reflex-app"
+cask "vanilla"
 
 # Communication
 cask "signal"
 cask "whatsapp"
+cask "zoom"
 
-# Work
-cask "docker-desktop"
-cask "figma"
-cask "loom"
+# Networking
+cask "tailscale-app"
 
 # Fonts
 cask "font-fira-code-nerd-font"
